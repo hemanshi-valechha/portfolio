@@ -2,8 +2,8 @@
    COMPONENT: Education & Achievements Section
    ===================================================== */
 (function () {
-    var s = document.currentScript;
-    s.insertAdjacentHTML('afterend', `
+  var s = document.currentScript;
+  s.insertAdjacentHTML('afterend', `
   <!-- EDUCATION -->
   <section id="education">
     <div>
@@ -26,28 +26,28 @@
       <h2 class="section-title reveal">Key <span>Wins</span></h2>
       <div class="achievements reveal">
         <div class="ach-item">
-          <div class="ach-emoji">🏆</div>
-          <div class="ach-text"><strong>5+ apps published on App Store</strong> with 100% first-submission approval rate</div>
+          <div class="ach-emoji">📱</div>
+          <div class="ach-text"><strong>5+ apps delivered end-to-end</strong> — UI design, development, testing, and App Store submission</div>
         </div>
         <div class="ach-item">
           <div class="ach-emoji">📉</div>
-          <div class="ach-text">Reduced crash rates by <strong>40%</strong> across multiple production applications</div>
+          <div class="ach-text">Reduced crash rates by <strong>40%</strong> across multiple production applications through systematic profiling</div>
         </div>
         <div class="ach-item">
           <div class="ach-emoji">⚡</div>
-          <div class="ach-text">Improved app performance by <strong>60%</strong> through targeted Swift optimization</div>
+          <div class="ach-text">Improved app performance by <strong>60%</strong> through lazy loading, memory optimisation, and background task management</div>
         </div>
         <div class="ach-item">
-          <div class="ach-emoji">🏭</div>
-          <div class="ach-text">Built and deployed <strong>SAP-integrated iOS demo app</strong> for enterprise client presentations at CalyzaTech</div>
+          <div class="ach-emoji">🤖</div>
+          <div class="ach-text">Integrated <strong>AI-assisted development workflows</strong> to accelerate UI creation, code quality, and feature delivery</div>
         </div>
         <div class="ach-item">
           <div class="ach-emoji">👨‍🏫</div>
-          <div class="ach-text">Mentored <strong>junior developers</strong> on Swift best practices and iOS architecture patterns</div>
+          <div class="ach-text">Mentored <strong>junior developers at Xceltec</strong> through code reviews and pair programming</div>
         </div>
         <div class="ach-item">
           <div class="ach-emoji">🎖️</div>
-          <div class="ach-text"><strong>NCC 'C' Certificate</strong> (2020) — National Cadet Corps, demonstrating leadership &amp; teamwork</div>
+          <div class="ach-text"><strong>NCC 'C' Certificate</strong> (2020) — Gold medal in Gujarat State firing competition, demonstrating discipline &amp; focus</div>
         </div>
       </div>
     </div>

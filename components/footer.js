@@ -6,9 +6,10 @@
   s.insertAdjacentHTML('afterend', `
   <!-- FOOTER -->
   <footer>
-    <div>© 2025 Hemanshi Valechha · iOS &amp; SAP Mobile Developer</div>
-    <div style="color:var(--accent);font-family:'Syne',sans-serif;font-weight:600;font-size:0.8rem;">CalyzaTech — SAP
-      Enterprise Partner</div>
+    <div>© 2026 Hemanshi Valechha · Frontend &amp; Mobile Developer</div>
+    <div style="color:var(--accent);font-family:'Syne',sans-serif;font-weight:600;font-size:0.8rem;">
+      Gandhidham, Gujarat · Open to Relocate
+    </div>
   </footer>
   `);
 })();

@@ -19,16 +19,56 @@ document.addEventListener('mousemove', e => {
    ================================================ */
 const hamburger = document.getElementById('navHamburger');
 const mobileMenu = document.getElementById('mobileMenu');
+function setMenuOpen(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+}
 hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
+    setMenuOpen(!mobileMenu.classList.contains('open'));
 });
 mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
+        setMenuOpen(false);
     });
 });
+
+/* Theme preference follows the system until the visitor chooses a mode. */
+const themeToggle = document.getElementById('themeToggle');
+const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
+let savedTheme;
+try { savedTheme = localStorage.getItem('portfolio-theme'); } catch (_) { savedTheme = null; }
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    const next = theme === 'light' ? 'dark' : 'light';
+    themeToggle.setAttribute('aria-label', `Switch to ${next} mode`);
+    themeToggle.setAttribute('title', `Switch to ${next} mode`);
+    themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
+}
+applyTheme(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : (systemTheme.matches ? 'light' : 'dark'));
+themeToggle.addEventListener('click', () => {
+    document.documentElement.classList.add('theme-transition');
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+    try { localStorage.setItem('portfolio-theme', next); } catch (_) { /* Private browsing may block storage. */ }
+    window.setTimeout(() => document.documentElement.classList.remove('theme-transition'), 450);
+});
+systemTheme.addEventListener('change', e => {
+    let preference;
+    try { preference = localStorage.getItem('portfolio-theme'); } catch (_) { preference = null; }
+    if (preference !== 'light' && preference !== 'dark') applyTheme(e.matches ? 'light' : 'dark');
+});
+
+const scrollTopButton = document.getElementById('scrollTop');
+function updateScrollTop() {
+    const visible = window.scrollY > 450;
+    scrollTopButton.classList.toggle('visible', visible);
+    scrollTopButton.tabIndex = visible ? 0 : -1;
+}
+window.addEventListener('scroll', updateScrollTop, { passive: true });
+updateScrollTop();
+scrollTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
 
 /* ================================================
    SCROLL REVEAL
@@ -39,7 +79,7 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 revealEls.forEach(el => obs.observe(el));
 
-document.querySelectorAll('.projects-grid, .sap-modules, .about-highlights, .achievements').forEach(grid => {
+document.querySelectorAll('.projects-grid, .about-highlights, .achievements').forEach(grid => {
     grid.querySelectorAll('.reveal').forEach((el, i) => {
         el.style.transitionDelay = (i * 0.08) + 's';
     });
@@ -77,58 +117,10 @@ if (statsEl) statsObs.observe(statsEl);
    ================================================ */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });
-
-/* ================================================
-   SAP APP SCREENSHOT CAROUSEL
-   ================================================ */
-(function initCarousel() {
-    const track = document.getElementById('sapCarouselTrack');
-    const dots = document.querySelectorAll('.carousel-dot');
-    const label = document.getElementById('slideLabel');
-    const prev = document.getElementById('carouselPrev');
-    const next = document.getElementById('carouselNext');
-
-    if (!track) return; // safeguard
-
-    const slideLabels = [
-        'Login Screen · 1 / 6',
-        'Dashboard · 2 / 6',
-        'Approvals List · 3 / 6',
-        'Approval Detail · 4 / 6',
-        'Documents · 5 / 6',
-        'Document Detail · 6 / 6'
-    ];
-
-    let current = 0;
-    const total = dots.length;
-    let autoTimer;
-
-    function goTo(index) {
-        current = (index + total) % total;
-        track.style.transform = `translateX(-${current * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
-        label.textContent = slideLabels[current];
-    }
-
-    prev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-    next.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
-    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.index); resetAuto(); }));
-
-    /* Swipe support */
-    let touchStartX = 0;
-    track.parentElement.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.parentElement.addEventListener('touchend', e => {
-        const delta = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(delta) > 40) { goTo(delta > 0 ? current + 1 : current - 1); resetAuto(); }
-    });
-
-    /* Auto-advance every 3.5s */
-    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 3500); }
-    function resetAuto() { clearInterval(autoTimer); startAuto(); }
-    startAuto();
-})();
