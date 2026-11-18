@@ -1401,7 +1401,11 @@ footer {
         gap: 0;
     }
     .hero-desc { margin-left: auto; margin-right: auto; }
-    .hero-visual { display: none; }
+    /* Show the photo on tablet/mobile, above the text */
+    .hero-visual { display: flex; order: -1; margin-bottom: 20px; }
+    .avatar-container { width: 220px; height: 220px; margin: 32px auto 44px; }
+    .chip-1 { right: -34px; font-size: 0.7rem; padding: 7px 11px; }
+    .chip-2 { right: -34px; bottom: 6px; font-size: 0.7rem; padding: 7px 11px; }
     .hero-ctas { justify-content: center; }
     .hero-stats { justify-content: center; flex-wrap: wrap; gap: 24px; }
 
@@ -1494,6 +1498,8 @@ footer {
    RESPONSIVE — SMALL PHONE  (≤ 390px — iPhone SE / 13 mini)
    ===================================================== */
 @media (max-width: 390px) {
+    .avatar-container { width: 190px; height: 190px; }
+    .chip-1, .chip-2 { right: -24px; font-size: 0.66rem; padding: 6px 9px; }
     .hero-name { font-size: 2.1rem; }
     section { padding: 44px 14px; }
     #hero { padding: 80px 14px 40px; }
