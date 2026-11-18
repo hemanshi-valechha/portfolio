@@ -15,7 +15,7 @@
         Hemanshi<br><span>Valechha</span>
       </h1>
       <p class="hero-role">
-        Developer @ <strong>Samyak Tech Labs</strong> · Based in <a class="hero-location" href="https://www.google.com/maps/search/?api=1&amp;query=Gandhidham%2C%20Gujarat" target="_blank" rel="noopener noreferrer" aria-label="View Gandhidham, Gujarat on Google Maps">Gandhidham, Gujarat</a>
+        Developer @ <strong>Samyak Tech Labs</strong> · Based in Gandhidham, Gujarat
       </p>
       <p class="hero-desc">
         Building polished iOS apps and frontend experiences — from UI design to App Store delivery.
